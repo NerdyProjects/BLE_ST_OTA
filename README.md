@@ -10,13 +10,16 @@ It is written in python and uses the `bluepy` bluetooth low energy lib.
 virtualenv --no-site-packages venv
 . ./venv/bin/activate
 pip install -r requirements.txt
+sudo setcap 'cap_net_raw,cap_net_admin+eip' ./venv/lib/python3.7/site-packages/bluepy/bluepy-helper
 ```
 
 ## Execution
+  * Turn bluetooth on
+  * If you get permission denied errors on BLE operations, make sure you executed the setcap command above or run the python script with sudo
 
 ```
 . ./venv/bin/activate
-python ota.py -h
+sudo python ota.py -h
 ```
 
 ### Scan

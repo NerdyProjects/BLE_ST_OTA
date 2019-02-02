@@ -8,10 +8,10 @@ def main():
 
   if args.scan:
     scanner = Scanner()
-    devices = scanner.scan(10.0)
+    devices = scanner.scan(5.0)
   
     for dev in devices:
-      print("Device %s (%s), RSSI=%d dB" % (dev.addr, dev.addrType, dev.rssi))
+      print("Device %s (%s), RSSI=%d dB, connectable=%r" % (dev.addr, dev.addrType, dev.rssi, dev.connectable))
       for (adtype, desc, value) in dev.getScanData():
         print("  %s = %s" % (desc, value))
   
