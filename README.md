@@ -30,12 +30,12 @@ displays a list of bluetooth LE devices
 
 ### Device Info
 ```
-python ota.py --device ma:c_:ad:dr:es:s!
+python ota.py --device 00:11:22:33:44:55
 ```
 displays information about flash memory on device
 
 ### Program device
 ```
-python ota.py --device 00:11:22:33:44 --program path/to/hexfile.hex
+python ota.py --device 00:11:22:33:44:55 --program path/to/hexfile.hex
 ```
 programs the device
