@@ -27,3 +27,15 @@ sudo python ota.py -h
 python ota.py --scan
 ```
 displays a list of bluetooth LE devices
+
+### Device Info
+```
+python ota.py --device ma:c_:ad:dr:es:s!
+```
+displays information about flash memory on device
+
+### Program device
+```
+python ota.py --device 00:11:22:33:44 --program path/to/hexfile.hex
+```
+programs the device
