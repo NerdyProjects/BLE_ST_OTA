@@ -129,7 +129,7 @@ class Ota():
                 raise Exception("Upload failed with timeout")
 
     def write_image_block(self, sequence, request_ack):
-        image = self.data.tobinarray(self.data.minaddr(), self.data.minaddr() + 15)
+        image = self.data.tobinarray(self.data.minaddr() + sequence * 16, self.data.minaddr() + sequence * 16 + 15)
         needs_ack = 1 if request_ack else 0
         checksum = needs_ack ^ (sequence % 256) ^ (sequence >> 8)
         for b in image:
