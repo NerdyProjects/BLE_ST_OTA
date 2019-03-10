@@ -141,9 +141,11 @@ class Ota():
         if handle == self.new_image_expected_tu_char.getHandle():
             next_sequence, error = unpack("<HH", data)
             status = OtaError(error)
-            print("Received notification for expected tu, seq: %d, status: %s" % (next_sequence, status))
+            #print("Received notification for expected tu, seq: %d, status: %s" % (next_sequence, status))
+            print("\rsending block %d of %d" % (next_sequence, self.last_sequence), end='\r')
             if error != 0:
-                print("Received error, retrying...")
+                print("\nReceived notification for expected tu, seq: %d, status: %s" % (next_sequence, status))
+                print("\nReceived error, retrying...")
             sys.stdout.flush()
             if next_sequence <= self.last_sequence:
                 for i in range(next_sequence, next_sequence + self.notification_interval):
@@ -154,10 +156,10 @@ class Ota():
                         #print("write image seq %d with ack %r" % (i, request_ack))
                         self.write_image_block(i, request_ack)
             else:
-                print("Upload finished")
+                print("\nUpload finished")
 
         else:
-            print("Received notification for %d with %s" % (handle, data.hex()))
+            print("\nReceived notification for %d with %s" % (handle, data.hex()))
 
 
 def main():
