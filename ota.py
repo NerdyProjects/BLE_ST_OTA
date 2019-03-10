@@ -121,7 +121,7 @@ class Ota():
         #self.write_image_block(0, data.tobinarray(min_addr, min_addr + 15))
         self.data = data
         self.sequence = 0
-        self.last_sequence = (max_addr - min_addr + 15) >> 4
+        self.last_sequence = ((max_addr - min_addr + 15) >> 4) - 1
         print("Starting upload, last sequence: %d" % (self.last_sequence))
         self.upload_in_progress = True
         while self.upload_in_progress:
@@ -148,8 +148,11 @@ class Ota():
             if next_sequence <= self.last_sequence:
                 for i in range(next_sequence, next_sequence + self.notification_interval):
                     request_ack = i == next_sequence + self.notification_interval - 1
-                    print("write image seq %d with ack %r" % (i, request_ack))
-                    self.write_image_block(i, request_ack)
+                    if i <= self.last_sequence:
+                        if i == self.last_sequence:
+                            request_ack = True
+                        #print("write image seq %d with ack %r" % (i, request_ack))
+                        self.write_image_block(i, request_ack)
             else:
                 print("Upload finished")
 
@@ -161,7 +164,8 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--scan", help="Scans for Bluetooth low energy devices", action="store_true")
     parser.add_argument("--device", help="Connects to given bluetooth device and give OTA information")
-    parser.add_argument("--program", help="Writes firmware image onto device")
+    parser.add_argument("--program", help="Writes firmware image onto device. Due to erase procedure, you might get an
+            error on a non-empty device and have to try the same command a second time.")
     args = parser.parse_args()
     ota_service = None
 
