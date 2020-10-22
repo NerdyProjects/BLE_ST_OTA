@@ -166,8 +166,8 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--scan", help="Scans for Bluetooth low energy devices", action="store_true")
     parser.add_argument("--device", help="Connects to given bluetooth device and give OTA information")
-    parser.add_argument("--program", help="Writes firmware image onto device. Due to erase procedure, you might get an
-            error on a non-empty device and have to try the same command a second time.")
+    parser.add_argument("--program", help="Writes firmware image onto device. Due to erase procedure, you might get"
+            + "an error on a non-empty device and have to try the same command a second time.")
     args = parser.parse_args()
     ota_service = None
 
